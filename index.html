@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang ="pt-BR">
+    <head>
+        <meta charset = "UTF-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+        <title> TechShip - Painel de Controle </title>
+        <link rel = "stylesheet" href = "css/style.css">
+        <link href = "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel = "stylesheet">
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <body>
+        <div class = "dashboard">
+            <div class = "sidebar">
+
+                <div class = "logo">
+                    <img src = "img/logo.png" alt = "TechShip Logo">
+                    <h2> TechShip </h2>
+                </div>
+                <ul class = "menu">
+                    <li data-section="dashboard-section" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard </li>
+                    <li data-section="new-client-section"><i class="fas fa-user-plus"></i> Novo Cliente </li>
+                    <li data-section="service-orders-section"><i class="fas fa-clipboard-list"></i> Ordens de Serviço </li>
+                    <li data-section="reports-section"><i class="fas fa-chart-line"></i> Relatórios </li>
+                    <li data-section="settings-section"><i class="fas fa-cogs"></i> Configurações </li>
+                </ul>
+                <div class="logout-btn">
+                    <button id="logout-btn" class="btn btn-secondary"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                </div>
+            </div>
+
+            <div class = "main-content">
+                <div class = "content-section active" id = "dashboard-section">
+                    <h1> Dashboard </h1>
+                    <div class = "summary-cards">
+                        <div class = "card">
+                            <i class = "fas fa-users icon"> </i>
+                            <h3> Clientes Totais </h3>
+                            <p id = "total-clients"> 0 </p>
+                        </div>
+                        <div class = "card">
+                            <i class = "fas fa-inbox icon"> </i>
+                            <h3> OS em Aberto </h3>
+                            <p id = "open-orders"> 0 </p>
+                        </div>
+                        <div class = "card">
+                            <i class = "fas fa-check-circle icon"> </i>
+                            <h3> OS Concluídas </h3>
+                            <p id = "completed-orders"> 0 </p>
+                        </div>
+                        <div class = "card">
+                            <i class = "fas fa-dollar-sign icon"> </i>
+                            <h3> Receita Total </h3>
+                            <p id = "total-revenue"> R$ 0,00 </p>
+                        </div>
+                    </div>
+
+                    <div class = "recent-orders-table">
+                        <h2> Ordens de Serviço Recentes </h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> ID </th>
+                                    <th> Cliente </th>
+                                    <th> Equipamento </th>
+                                    <th> Entrega Estimada </th>
+                                    <th> Status </th>
+                                </tr>
+                            </thead>
+                            <tbody id = "recent-orders-table-body">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class = "content-section" id = "new-client-section">
+                    <h1> Cadastro de Ordem de Serviço </h1>
+                    <form id = "client-form">
+                        <div class = "form-group">
+                            <h2> Dados do Cliente </h2>
+                            <div class = "input-row">
+                                <input type = "text" id = "client-name" name = "client-name" placeholder = "Nome do Cliente" required>
+                                <input type = "tel" id = "client-phone" name = "client-phone" placeholder = "Telefone do Cliente" required>
+                                <input type = "email" id = "client-email" name = "client-email" placeholder = "E-mail do Cliente">
+                            </div>
+                        </div>
+
+                        <div class = "form-group">
+                            <h2> Informações do Equipamento </h2>
+                            <div class = "input-row">
+                                <input type = "text" id = "equipment-brand" name = "equipment-brand" placeholder = "Marca do Equipamento" required>
+                                <input type = "text" id = "equipment-model" name = "equipment-model" placeholder = "Modelo do Equipamento" required>
+                                <input type = "text" id = "equipment-serial" name = "equipment-serial" placeholder = "N° de Série" required>
+                            </div>
+                            <div class = "input-row">
+                                <input type = "text" id = "equipment-accessories" name = "equipment-accessories" placeholder = "Acessórios Entregues">
+                                <input type = "text" id = "equipment-password" name = "equipment-password" placeholder = "Senha do Equipamento">
+                                <input type = "text" id = "equipment-condition" name = "equipment-condition" placeholder = "Estado Físico na Entrada" required>
+                            </div>
+                        </div>
+
+                        <div class = "form-group">
+                            <h2> Detalhes do Serviço </h2>
+                            <div class = "input-row">
+                                <textarea id = "problem-description" name = "problem-description" placeholder = "Descrição do Problema" required></textarea>
+                                <textarea id = "technical-notes" name = "technical-notes" placeholder = "Observações Técnicas"></textarea>
+                            </div>
+                            <div class = "input-row">
+                                <input type = "number" id = "service-value" name = "service-value" placeholder = "Valor do Serviço (R$)" step = "0.01" required>
+                                <input type = "text" id = "payment-method" name = "payment-method" placeholder = "Forma de Pagamento" required>
+                                <input type = "date" id = "estimated-delivery" name = "estimated-delivery" required>
+                            </div>
+                        </div>
+
+                        <div class = "form-actions">
+                            <button type = "submit" class = "btn btn-primary" id="submit-order-btn"> Salvar OS </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class = "content-section" id = "service-orders-section">
+                    <h1> Ordens de Serviço </h1>
+                    <div class = "table-actions">
+                        <button class = "btn btn-secondary" id = "export-excel-btn"> Exportar para Excel </button>
+                    </div>
+                    <div class = "table-container">
+                        <table id = "orders-table">
+                            <thead>
+                                <tr>
+                                    <th> ID </th>
+                                    <th> Cliente </th>
+                                    <th> Equipamento </th>
+                                    <th> Problema </th>
+                                    <th> Valor </th>
+                                    <th> Prazo </th>
+                                    <th> Status </th>
+                                    <th> Ações </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class = "content-section" id = "reports-section">
+                    <h1> Relatórios </h1>
+                    <div class = "report-options">
+                        <input type = "date" id = "report-start-date">
+                        <input type = "date" id = "report-end-date">
+                        <button class = "btn btn-primary" id = "generate-report-btn"> Gerar Relatório </button>
+                    </div>
+
+                    <div class = "report-results" style = "display: none;">
+                        <div class = "summary-cards">
+                            <div class = "card">
+                                <i class = "fas fa-clipboard-list icon"></i>
+                                <h3> Total de OS no Período </h3>
+                                <p id = "total-report-os"> 0 </p>
+                            </div>
+                            <div class = "card">
+                                <i class = "fas fa-dollar-sign icon"></i>
+                                <h3> Receita no Período </h3>
+                                <p id = "total-report-revenue"> R$ 0,00 </p>
+                            </div>
+                        </div>
+
+                        <div class = "chart-container">
+                            <h2> Receita Mensal </h2>
+                            <canvas id = "revenue-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "content-section" id = "settings-section">
+                    <h1> Configurações </h1>
+                    <form id = "settings-form">
+                        <div class = "form-group">
+                            <h2> Dados da Empresa </h2>
+                            <div class = "input-row">
+                                <input type = "text" id = "company-name" name = "company-name" placeholder = "Nome da Empresa">
+                                <input type = "text" id = "default-tech" name = "default-tech" placeholder = "Técnico Padrão">
+                                <input type = "number" id = "default-warranty" name = "default-warranty" placeholder = "Garantia Padrão (dias)">
+                            </div>
+                        </div>
+
+                        <div class = "form-group">
+                            <h2> Backup & Restauração </h2>
+                            <div class = "backup-restore-actions">
+                                <button type = "button" class = "btn btn-secondary" id = "backup-btn">
+                                    <i class = "fas fa-download"> </i> Fazer Backup
+                                </button>
+                                <input type = "file" id = "restore-file-input" style = "display: none;" accept = ".json">
+                                <button type = "button" class = "btn btn-secondary" id = "restore-btn">
+                                    <i class = "fas fa-upload"> </i> Restaurar Backup
+                                </button>
+                            </div>
+                        </div>
+                        <div class = "form-actions">
+                            <button type = "submit" class = "btn btn-primary"> Salvar Configurações </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class = "modal" id = "pdf-preview-modal">
+            <div class = "modal-content">
+                <div class = "modal-header">
+                    <h2> Pré-visualização da OS </h2>
+                    <span class = "close-modal"> &times; </span>
+                </div>
+                <div class = "modal-body" id = "pdf-preview-content">
+                    </div>
+                <div class = "modal-footer">
+                    <button class = "btn btn-secondary close-modal"> Fechar </button>
+                    <button class = "btn btn-primary" id = "download-pdf-btn"> Download PDF </button>
+                </div>
+            </div>
+        </div>
+
+        <script src = "https://cdn.jsdelivr.net/npm/sweetalert2@11"> </script>
+        <script src = "js/FileSaver.js"> </script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+        <script src = "https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src = "js/script.js"> </script>
+    </body>
+</html>
